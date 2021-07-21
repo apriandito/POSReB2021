@@ -1,0 +1,80 @@
+---
+title: "Multiple linear regression"
+author: "Muhammad Apriandito"
+---
+
+```{r}
+# Install Packages from Github]
+remotes::install_github("easystats/easystats")
+```
+
+```{r}
+# Load Packages
+library("easystats")
+```
+
+```{r}
+# Load data
+data("marketing", package = "datarium")
+head(marketing)
+```
+
+```{r}
+# Create Data Report
+report(marketing)
+```
+
+```{r}
+# Check Correlation
+correlation(marketing)
+```
+
+```{r}
+# Create Model
+model <- lm(sales ~ youtube + facebook + newspaper, data = marketing)
+```
+
+```{r}
+# Check Parameter
+model_parameters(model)
+```
+
+```{r}
+# Plot Parameters
+plot(parameters(model))
+```
+
+```{r}
+# Model Report
+report(model)
+```
+
+```{r message=FALSE, warning=FALSE}
+# Check Model Assumsition
+check_model(model)
+```
+
+```{r}
+# Check normality
+check_normality(model)
+```
+
+```{r}
+# Check Multicolinearity
+check_heteroscedasticity(model)
+```
+
+```{r}
+# Check multicollineariy
+check_collinearity(model)
+```
+
+```{r}
+# Check Autocorrelation
+check_autocorrelation(model)
+```
+
+```{r}
+# Model Performance
+model_performance(model)
+```

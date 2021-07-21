@@ -1,0 +1,36 @@
+---
+title: "Descriptive Statistics"
+author: "Santi Novani & Muhammad Apriandito"
+---
+
+```{r}
+# Load library
+library(easystats)
+library(pastecs)
+```
+
+```{r}
+# Load data
+data("marketing", package = "datarium")
+head(marketing)
+```
+
+```{r}
+report(marketing)
+```
+
+```{r}
+stat.desc(marketing)
+```
+
+
+```{r}
+# Check Correlation
+correlation(marketing)
+```
+
+
+```{r}
+summary(marketing)
+```
+
