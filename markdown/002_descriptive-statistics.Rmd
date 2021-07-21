@@ -3,34 +3,62 @@ title: "Descriptive Statistics"
 author: "Santi Novani & Muhammad Apriandito"
 ---
 
+# Install Packages
 ```{r}
-# Load library
+# Install packages
+install.packages(c("tidyverse",
+                   "pastecs"))
+```
+
+```{r}
+# Install packages from GitHub
+remotes::install_github("easystats/easystats")
+```
+
+# Load Packages
+```{r}
+# Load Packages
+library(tidyverse)
 library(easystats)
 library(pastecs)
 ```
 
+# Load Data
 ```{r}
 # Load data
-data("marketing", package = "datarium")
-head(marketing)
+df <- read_csv("data/marketing.csv")
 ```
 
 ```{r}
-report(marketing)
+# Print/Show the data
+print(df)
+```
+
+# Descriptive Statistics
+
+```{r}
+# Descriptive Statistics from base
+summary(df)
 ```
 
 ```{r}
-stat.desc(marketing)
+# Descriptive Statistics from pastecs
+stat.desc(df)
 ```
 
 ```{r}
-summary(marketing)
+# Get Statistical Report
+report(df)
 ```
 
+# Correlation
+
 ```{r}
-# Check Correlation
-correlation(marketing)
+# Pearson Correlation
+correlation(df)
 ```
+
+
 
 
 

@@ -3,26 +3,101 @@ title: "Data Visualization"
 author: "Santi Novani & Muhammad Apriandito"
 ---
 
+# Load Packages
 ```{r}
+# Load packages
 library(tidyverse)
+library(lubridate)
 ```
 
-
+# Load Data
 ```{r}
 # Load data
-data("marketing", package = "datarium")
-head(marketing)
+df <- read_csv("data/marketing.csv")
 ```
 
 ```{r}
-# Visualisasi Histogram
-hist(marketing$newspaper)
+# Print/Show the data
+print(df)
 ```
 
+# Visualization using Base R
 ```{r}
-# Histogram Age
-ggplot(data = marketing, aes(x = newspaper)) +
+# Histogram using Base
+hist(df$youtube)
+```
+
+# Visualization using ggplot2
+```{r}
+# Histogram using ggplot2
+ggplot(data = df, aes(x = youtube)) +
   geom_histogram(colour = "#e9ecef", fill = "#00bfc4")
 ```
+
+## Get Another Data to have more data visualization
+
+```{r}
+# Load package
+library(readxl)
+```
+
+```{r}
+# Get customer churn data
+df_superstore <- read_xls("data/Superstore.xls")
+```
+
+```{r}
+# Print/Show the data
+print(df_superstore )
+```
+
+```{r}
+# Barplot: Visualize city with highest sales
+df_superstore %>%
+  select(sales, state) %>%
+  group_by(state) %>%
+  mutate(state_sales = sum(sales)) %>%
+  ungroup() %>%
+  select(state, state_sales) %>%
+  distinct() %>%
+  arrange(desc(state_sales)) %>%
+  slice_head(n = 5) %>%
+  ggplot(aes(x = reorder(state, -state_sales), y = state_sales, fill = state_sales)) +
+  geom_col() +
+  labs(
+    title = "Top 5 cities with the highest sales",
+    subtitle = "Superstore Company",
+    x = "",
+    y = "Sales"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+
+```{r}
+# Linplot: Visualize sales trend
+df_superstore %>%
+  select(order_date, sales) %>%
+  mutate(order_month = floor_date(order_date, "month")) %>%
+  group_by(order_month) %>%
+  mutate(monthly_sales = sum(sales)) %>%
+  ungroup() %>%
+  select(order_month, monthly_sales) %>%
+  distinct() %>%
+  ggplot(aes(x = order_month, y = monthly_sales)) +
+  geom_line() +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Sales Trend",
+    subtitle = "Superstore Company",
+    x = "",
+    y = "Sales"
+  ) +
+  theme_minimal()
+```
+
+
+
 
 

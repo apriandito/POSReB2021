@@ -1,70 +1,75 @@
+---
+title: "Hypothesis Testing"
+author: "Santi Novani & Muhammad Apriandito"
+---
+
+# Load Data
 ```{r}
-library(tidymodels)
+# Load data
+df <- read_csv("data/marketing.csv")
 ```
 
 ```{r}
-# load in the data set
-data(gss)
+# Print/Show the data
+print(df)
+```
+
+# One Sample t-test (Two Sided, alpha = 0.05)
+
+Hypothesis
+H0 = the mean of Youtube adv budget is equal to 200
+H1 = the mean of Youtube adv budget is not equal to 200
+
+```{r}
+# Model the t-test
+ttest <- t.test(df$youtube, mu = 200, alternative = "two.sided")	
 ```
 
 ```{r}
-glimpse(gss)
+# Show t-test result
+ttest
+```
+
+If p-value < 0.05 Reject H0
+If p-value > 0.05 Accept H0
+
+
+# One Sample t-test (Upper test, alpha = 0.05)
+
+Hypothesis
+H0 = the mean of Youtube adv budget is less than or equal to 200
+H1 = the mean of Youtube adv budget is greater than 200
+
+```{r}
+# Model the t-test
+ttest_upper <- t.test(df$youtube, mu = 200, alternative = "greater")	
 ```
 
 ```{r}
-gss %>%
-  specify(response = age)
+# Show t-test result
+ttest_upper
+```
+
+If p-value < 0.05 Reject H0
+If p-value > 0.05 Accept H0
+
+
+# One Sample t-test (Lower test, alpha = 0.05)
+
+Hypothesis
+H0 = the mean of Youtube adv budget is greater than or equal to 200
+H1 = the mean of Youtube adv budget is less than 200
+
+```{r}
+# Model the t-test
+ttest_lower <- t.test(df$youtube, mu = 200, alternative = "less")	
 ```
 
 ```{r}
-gss %>%
-  specify(age ~ partyid)
-```
-```{r}
-# with the named arguments
-gss %>%
-  specify(response = age, explanatory = partyid)
+# Show t-test result
+ttest_lower
 ```
 
-```{r}
-gss %>%
-  specify(college ~ partyid, success = "degree") %>%
-  hypothesize(null = "independence")
-```
-
-```{r}
-gss %>%
-  specify(response = hours) %>%
-  hypothesize(null = "point", mu = 40)
-```
-
-```{r}
-gss %>%
-  specify(response = hours) %>%
-  hypothesize(null = "point", mu = 40) %>%
-  generate(reps = 5000, type = "bootstrap")
-```
-
-```{r}
-gss %>%
-  specify(partyid ~ age) %>%
-  hypothesize(null = "independence") %>%
-  generate(reps = 5000, type = "permute")
-```
-
-```{r}
-gss %>%
-  specify(response = hours) %>%
-  hypothesize(null = "point", mu = 40) %>%
-  generate(reps = 5000, type = "bootstrap") %>%
-  calculate(stat = "mean")
-```
-
-```{r}
-gss %>%
-  specify(age ~ college) %>%
-  hypothesize(null = "independence") %>%
-  generate(reps = 5000, type = "permute") %>%
-  calculate("diff in means", order = c("degree", "no degree"))
-```
+If p-value < 0.05 Reject H0
+If p-value > 0.05 Accept H0
 
