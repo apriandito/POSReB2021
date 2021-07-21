@@ -23,6 +23,9 @@ report(marketing)
 stat.desc(marketing)
 ```
 
+```{r}
+summary(marketing)
+```
 
 ```{r}
 # Check Correlation
@@ -30,7 +33,5 @@ correlation(marketing)
 ```
 
 
-```{r}
-summary(marketing)
-```
+
 

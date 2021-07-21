@@ -2,3 +2,27 @@
 title: "Data Visualization"
 author: "Santi Novani & Muhammad Apriandito"
 ---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+# Load data
+data("marketing", package = "datarium")
+head(marketing)
+```
+
+```{r}
+# Visualisasi Histogram
+hist(marketing$newspaper)
+```
+
+```{r}
+# Histogram Age
+ggplot(data = marketing, aes(x = newspaper)) +
+  geom_histogram(colour = "#e9ecef", fill = "#00bfc4")
+```
+
+
