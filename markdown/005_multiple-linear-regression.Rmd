@@ -1,12 +1,18 @@
 ---
 title: "Multiple linear regression"
-author: "Muhammad Apriandito"
+author: "Santi Novani & Muhammad Apriandito"
 ---
+
+# Install Packages
+```{r}
+# Install Packages
+install.packages("tidyverse")
+```
 
 # Load Packages
 ```{r}
 # Load Packages
-library(easystats)
+library(easystats) # We already installed it in the previous module
 library(tidyverse)
 ```
 
@@ -26,15 +32,12 @@ print(df)
 report(marketing)
 ```
 
-# Correlation
-
 ```{r}
 # Check Correlation
 correlation(marketing)
 ```
 
 # Build Regression Model
-
 ```{r}
 # Create Model
 model <- lm(sales ~ youtube + facebook + newspaper, data = marketing)
@@ -56,7 +59,6 @@ report(model)
 ```
 
 # Classical Asumption Test
-
 ```{r message=FALSE, warning=FALSE}
 # Check Model Assumsition
 check_model(model)

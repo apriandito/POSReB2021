@@ -1,0 +1,91 @@
+---
+title: "Partial Least Square"
+author: "Santi Novani & Muhammad Apriandito"
+---
+
+# Install Packages
+```{r}
+# Install Packages
+install.packages("seminr")
+```
+
+# Load Packages
+```{r}
+# Load Packages
+library(seminr)
+library(tidyverse)
+```
+
+# Import Data
+```{r}
+# Import Data
+education <- read_csv("data/education.csv")
+```
+
+```{r}
+# Print Data
+print(education)
+```
+
+# Partial Least Square
+```{r}
+# Create Measurement Model
+education_mm <- constructs(
+  composite("Advising", multi_items("adv.",c("comp","acces","comm","qual"))),
+  composite("Tutoring", multi_items("tut.",c("prof","sched","stud","qual"))),
+  composite("Value", multi_items("val.",c("devel","deci","meet", "info"))),
+  composite("Satisfaction", multi_items("sat.",c("glad","expe","over"))))
+```
+
+```{r}
+# Convert as Reflective
+education_mm <- as.reflective(education_mm)
+```
+
+```{r}
+# Create Structural Model
+education_sm <- relationships(
+  paths(from = "Tutoring", to = c("Value","Satisfaction")),
+  paths(from = "Advising",to = c("Value","Satisfaction")),
+  paths(from = "Value",to = "Satisfaction"))
+```
+
+```{r}
+# Create PLS Model
+education_pls <- estimate_pls(
+  data = education,
+  measurement_model = education_mm,
+  structural_model = education_sm
+)
+```
+
+```{r}
+# See Model Summary
+summary(education_pls)
+```
+
+```{r}
+# Show Model Summary
+summary(education_pls)
+```
+
+```{r}
+# Loadings (Ideally more than 0.7)
+summary(education_pls)$loadings
+```
+
+```{r}
+# Botsraping
+education_bm <- bootstrap_model(seminr_model = education_pls, 
+                                nboot = 1000, 
+                                cores = 2, seed = 123)
+```
+
+```{r}
+# Summary of bootsrap model
+summary(education_bm)
+```
+
+Reference: 
+- https://cran.r-project.org/web/packages/seminr/seminr.pdf
+- http://didi.uvers.ac.id/ 

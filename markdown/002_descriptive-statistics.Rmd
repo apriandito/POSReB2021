@@ -3,11 +3,10 @@ title: "Descriptive Statistics"
 author: "Santi Novani & Muhammad Apriandito"
 ---
 
-# Install Packages
+## Install Packages
 ```{r}
-# Install packages
-install.packages(c("tidyverse",
-                   "pastecs"))
+# Install packages from CRAN
+install.packages("pastecs")
 ```
 
 ```{r}
@@ -15,51 +14,61 @@ install.packages(c("tidyverse",
 remotes::install_github("easystats/easystats")
 ```
 
-# Load Packages
+## Load Packages
 ```{r}
 # Load Packages
-library(tidyverse)
+library(readr) # We already installed it in the previous module
 library(easystats)
 library(pastecs)
 ```
 
-# Load Data
+## Load Data
 ```{r}
 # Load data
-df <- read_csv("data/marketing.csv")
+df_marketing <- read_csv("data/marketing.csv")
 ```
 
 ```{r}
 # Print/Show the data
-print(df)
+print(df_marketing)
 ```
 
-# Descriptive Statistics
-
+## Descriptive Statistics
 ```{r}
-# Descriptive Statistics from base
-summary(df)
-```
-
-```{r}
-# Descriptive Statistics from pastecs
-stat.desc(df)
+# Descriptive Statistics using base (You don't need to install anything)
+summary(df_marketing)
 ```
 
 ```{r}
-# Get Statistical Report
-report(df)
+# Descriptive Statistics using pastecs
+stat.desc(df_marketing)
 ```
-
-# Correlation
 
 ```{r}
-# Pearson Correlation
-correlation(df)
+# Get Statistical Report using easystats
+report(df_marketing)
 ```
 
+## Correlation
 
+```{r}
+# Compute a correlation matrix using base (You don't need to install anything)
+cor(df)
+```
 
+### Visualize
+```{r}
+# Install package
+install.packages("ggcorrplot")
+```
 
+```{r}
+# Load package
+library(ggcorrplot)
+```
 
+```{r}
+# Visualize using ggcorplot
+ggcorrplot(cor(df))
+```
 

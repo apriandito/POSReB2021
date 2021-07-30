@@ -3,26 +3,30 @@ title: "Hypothesis Testing"
 author: "Santi Novani & Muhammad Apriandito"
 ---
 
+```{r}
+# Load packages
+library(readr)
+```
+
 # Load Data
 ```{r}
 # Load data
-df <- read_csv("data/marketing.csv")
+df_marketing <- read_csv("data/marketing.csv")
 ```
 
 ```{r}
 # Print/Show the data
-print(df)
+print(df_marketing)
 ```
 
 # One Sample t-test (Two Sided, alpha = 0.05)
-
 Hypothesis
 H0 = the mean of Youtube adv budget is equal to 200
 H1 = the mean of Youtube adv budget is not equal to 200
 
 ```{r}
 # Model the t-test
-ttest <- t.test(df$youtube, mu = 200, alternative = "two.sided")	
+ttest <- t.test(df_marketing[["youtube"]], mu = 200, alternative = "two.sided")	
 ```
 
 ```{r}
@@ -33,7 +37,6 @@ ttest
 If p-value < 0.05 Reject H0
 If p-value > 0.05 Accept H0
 
-
 # One Sample t-test (Upper test, alpha = 0.05)
 
 Hypothesis
@@ -42,7 +45,7 @@ H1 = the mean of Youtube adv budget is greater than 200
 
 ```{r}
 # Model the t-test
-ttest_upper <- t.test(df$youtube, mu = 200, alternative = "greater")	
+ttest_upper <- t.test(df_marketing[["youtube"]], mu = 200, alternative = "greater")	
 ```
 
 ```{r}
